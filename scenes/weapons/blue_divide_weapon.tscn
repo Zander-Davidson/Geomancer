@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://cd7bquy6kot7t"]
+
+[ext_resource type="Script" uid="uid://dypwvunaab26f" path="res://scripts/weapon.gd" id="1_umiem"]
+[ext_resource type="Texture2D" uid="uid://0md4fa0qdsch" path="res://assets/red_minus_spritesheet.png" id="2_jmmf4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wojv"]
+atlas = ExtResource("2_jmmf4")
+region = Rect2(0, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cwlts"]
+atlas = ExtResource("2_jmmf4")
+region = Rect2(320, 320, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cwaps"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wojv")
+}],
+"loop": true,
+"name": &"not_selected",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cwlts")
+}],
+"loop": true,
+"name": &"selected",
+"speed": 10.0
+}]
+
+[node name="BlueDivideWeapon" type="Node2D"]
+script = ExtResource("1_umiem")
+distance_from_parent = 110
+metadata/_custom_type_script = "uid://dypwvunaab26f"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.4, 0.4)
+sprite_frames = SubResource("SpriteFrames_cwaps")
+animation = &"not_selected"
