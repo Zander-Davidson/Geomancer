@@ -1,5 +1,8 @@
 extends Node
 
+func get_direction_to_player(position: Vector2):
+	return (Global.player.position - position).normalized()
+
 # calculate cardinal direction from a vector
 func get_cardinal_direction(vector):
 	var angle = vector.angle()

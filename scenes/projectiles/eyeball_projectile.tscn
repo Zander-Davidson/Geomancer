@@ -1,0 +1,88 @@
+[gd_scene load_steps=13 format=3 uid="uid://h73lmnchhlxb"]
+
+[ext_resource type="Script" uid="uid://b3x45g151f5fo" path="res://scripts/projectile.gd" id="1_m8p0i"]
+[ext_resource type="Texture2D" uid="uid://sesgtxxfby6j" path="res://assets/eyeball_projectile.png" id="2_nl858"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ev5a8"]
+atlas = ExtResource("2_nl858")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50wxq"]
+atlas = ExtResource("2_nl858")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ik7p3"]
+atlas = ExtResource("2_nl858")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqohf"]
+atlas = ExtResource("2_nl858")
+region = Rect2(0, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3acsu"]
+atlas = ExtResource("2_nl858")
+region = Rect2(320, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cepmy"]
+atlas = ExtResource("2_nl858")
+region = Rect2(640, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2u11"]
+atlas = ExtResource("2_nl858")
+region = Rect2(0, 640, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3hvo5"]
+atlas = ExtResource("2_nl858")
+region = Rect2(320, 640, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xorru"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ev5a8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_50wxq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ik7p3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqohf")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3acsu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cepmy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j2u11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3hvo5")
+}],
+"loop": true,
+"name": &"moving_diagonal",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nl858"]
+radius = 38.477985
+
+[node name="EyeballProjectile" type="Area2D"]
+scale = Vector2(0.6, 0.6)
+script = ExtResource("1_m8p0i")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_xorru")
+animation = &"moving_diagonal"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nl858")

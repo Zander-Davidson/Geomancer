@@ -1,7 +1,11 @@
-[gd_scene load_steps=77 format=3 uid="uid://bjkdkwbjygm8e"]
+[gd_scene load_steps=78 format=3 uid="uid://bjkdkwbjygm8e"]
 
 [ext_resource type="Script" uid="uid://ds0y1fo4n3wdj" path="res://scenes/enemies/pink_triangle_enemy.gd" id="1_eyq5a"]
 [ext_resource type="Texture2D" uid="uid://bxcdsa4u4fdpd" path="res://assets/pink_triangle_spritesheet.png" id="1_pmvdw"]
+[ext_resource type="PackedScene" uid="uid://bseq2128iea6e" path="res://ui/radial_health_bar.tscn" id="3_wux05"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eyq5a"]
+radius = 91.90877
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wux05"]
 atlas = ExtResource("1_pmvdw")
@@ -306,9 +310,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aob7w")
 }],
-"loop": true,
+"loop": false,
 "name": &"firing_0",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -323,9 +327,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bt3ns")
 }],
-"loop": true,
+"loop": false,
 "name": &"firing_1",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -340,9 +344,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_x4j1l")
 }],
-"loop": true,
+"loop": false,
 "name": &"firing_2",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -357,9 +361,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vyavo")
 }],
-"loop": true,
+"loop": false,
 "name": &"firing_3",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -374,9 +378,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ehtqy")
 }],
-"loop": true,
+"loop": false,
 "name": &"firing_4",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -391,9 +395,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_rd8fn")
 }],
-"loop": true,
+"loop": false,
 "name": &"firing_5",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -408,9 +412,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_d00vs")
 }],
-"loop": true,
+"loop": false,
 "name": &"firing_6",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -425,9 +429,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_hyb3p")
 }],
-"loop": true,
+"loop": false,
 "name": &"firing_7",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -630,16 +634,37 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_eyq5a"]
-radius = 91.90877
-
 [node name="PinkTriangleEnemy" type="CharacterBody2D"]
 scale = Vector2(0.6, 0.6)
 script = ExtResource("1_eyq5a")
 
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_eyq5a")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0glr5")
-animation = &"moving_7"
+animation = &"firing_0"
+
+[node name="RadialHealthBar" parent="." instance=ExtResource("3_wux05")]
+
+[node name="FiringChargeHoldTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FiringCooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FiringChargeTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_eyq5a")
+
+[connection signal="hit" from="." to="RadialHealthBar" method="_on_hit"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="FiringChargeHoldTimer" to="." method="_on_firing_charge_hold_timer_timeout"]
+[connection signal="timeout" from="FiringCooldownTimer" to="." method="_on_firing_cooldown_timer_timeout"]
+[connection signal="timeout" from="FiringChargeTimer" to="." method="_on_firing_charge_timer_timeout"]

@@ -4,20 +4,11 @@
 [ext_resource type="Script" uid="uid://dgr2d61l7e6du" path="res://scenes/world.gd" id="1_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://bjkdkwbjygm8e" path="res://scenes/enemies/pink_triangle_enemy.tscn" id="3_4wyf3"]
 
-[node name="World" type="Node2D"]
+[node name="World" type="WorldEnvironment"]
 script = ExtResource("1_rwgxs")
 
 [node name="Player" parent="." instance=ExtResource("1_nnsk1")]
 position = Vector2(700, 480)
 
 [node name="PinkTriangleEnemy" parent="." instance=ExtResource("3_4wyf3")]
-position = Vector2(1606, 1124)
-
-[node name="PinkTriangleEnemy2" parent="." instance=ExtResource("3_4wyf3")]
-position = Vector2(1586, -56)
-
-[node name="PinkTriangleEnemy3" parent="." instance=ExtResource("3_4wyf3")]
-position = Vector2(122, 1130)
-
-[node name="PinkTriangleEnemy4" parent="." instance=ExtResource("3_4wyf3")]
-position = Vector2(134, -94)
+position = Vector2(1257, 517)

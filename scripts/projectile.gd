@@ -1,13 +1,15 @@
-class_name Projectile extends Node2D
+class_name Projectile extends CollisionObject2D
 
+@export var damage = 1
 @export var max_speed = 10
 var move_direction
 var move_cardinal_direction
 
-func setup(max_speed_in, move_direction_in, initial_position):
+func setup(max_speed_in, damage_in, move_direction_in, initial_position):
 	move_direction = move_direction_in
 	move_cardinal_direction = MathUtility.get_cardinal_direction(move_direction)
 	max_speed = max_speed_in
+	damage = damage_in
 	position = initial_position
 
 func _process(delta: float) -> void:
@@ -15,8 +17,7 @@ func _process(delta: float) -> void:
 	process_animation()
 	
 func process_movement(delta: float):
-	var velocity = max_speed
-	position += move_direction * velocity * delta
+	position += move_direction * max_speed * delta
 	
 func process_animation():
 	# set animation rotation

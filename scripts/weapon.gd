@@ -6,6 +6,11 @@ var projectile_scene
 
 func setup(projectile_scene_in):
 	projectile_scene = projectile_scene_in
+	
+func create_projectile(aim_direction: Vector2, weapon_location: Vector2):
+	var projectile = projectile_scene.instantiate() as Projectile
+	projectile.setup(1000, 3, aim_direction, weapon_location)
+	return projectile
 
 func _process(delta: float):
 	process_animation()
