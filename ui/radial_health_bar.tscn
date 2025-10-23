@@ -3,16 +3,16 @@
 [ext_resource type="Texture2D" uid="uid://bfnpbu8kgfeg6" path="res://assets/radial_progress_bar_small_spritesheet.png" id="1_bwywt"]
 [ext_resource type="Script" uid="uid://c3j7b07jihskq" path="res://scripts/radial_health_bar.gd" id="1_reye2"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_qirge"]
+atlas = ExtResource("1_bwywt")
+region = Rect2(960, 960, 320, 320)
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qirge"]
 load_path = "res://.godot/imported/radial_progress_bar_small_spritesheet.png-47e620d98b957a5d96103304c702d9b4.ctex"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_equa0"]
 atlas = SubResource("CompressedTexture2D_qirge")
 region = Rect2(640, 960, 320, 320)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fxf1w"]
-atlas = SubResource("CompressedTexture2D_qirge")
-region = Rect2(320, 960, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c0rom"]
 atlas = ExtResource("1_bwywt")
@@ -38,43 +38,43 @@ region = Rect2(320, 0, 320, 320)
 atlas = SubResource("CompressedTexture2D_qirge")
 region = Rect2(0, 0, 320, 320)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3nv54"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxf1w"]
 atlas = SubResource("CompressedTexture2D_qirge")
+region = Rect2(320, 960, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3nv54"]
+atlas = ExtResource("1_bwywt")
 region = Rect2(0, 960, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cc5l3"]
-atlas = SubResource("CompressedTexture2D_qirge")
+atlas = ExtResource("1_bwywt")
 region = Rect2(960, 640, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j74ae"]
-atlas = SubResource("CompressedTexture2D_qirge")
+atlas = ExtResource("1_bwywt")
 region = Rect2(640, 640, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ixe8u"]
-atlas = SubResource("CompressedTexture2D_qirge")
+atlas = ExtResource("1_bwywt")
 region = Rect2(320, 640, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rg2i0"]
-atlas = SubResource("CompressedTexture2D_qirge")
+atlas = ExtResource("1_bwywt")
 region = Rect2(0, 640, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bcwpu"]
-atlas = SubResource("CompressedTexture2D_qirge")
+atlas = ExtResource("1_bwywt")
 region = Rect2(960, 320, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ybxp1"]
-atlas = SubResource("CompressedTexture2D_qirge")
+atlas = ExtResource("1_bwywt")
 region = Rect2(640, 320, 320, 320)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ybfif"]
-atlas = SubResource("CompressedTexture2D_qirge")
-region = Rect2(320, 320, 320, 320)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_d3p6v"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_equa0")
+"texture": SubResource("AtlasTexture_qirge")
 }],
 "loop": true,
 "name": &"progress_0",
@@ -82,7 +82,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fxf1w")
+"texture": SubResource("AtlasTexture_equa0")
 }],
 "loop": true,
 "name": &"progress_1",
@@ -138,7 +138,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3nv54")
+"texture": SubResource("AtlasTexture_fxf1w")
 }],
 "loop": true,
 "name": &"progress_2",
@@ -146,7 +146,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_cc5l3")
+"texture": SubResource("AtlasTexture_3nv54")
 }],
 "loop": true,
 "name": &"progress_3",
@@ -154,7 +154,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_j74ae")
+"texture": SubResource("AtlasTexture_cc5l3")
 }],
 "loop": true,
 "name": &"progress_4",
@@ -162,7 +162,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ixe8u")
+"texture": SubResource("AtlasTexture_j74ae")
 }],
 "loop": true,
 "name": &"progress_5",
@@ -170,7 +170,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rg2i0")
+"texture": SubResource("AtlasTexture_ixe8u")
 }],
 "loop": true,
 "name": &"progress_6",
@@ -178,7 +178,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bcwpu")
+"texture": SubResource("AtlasTexture_rg2i0")
 }],
 "loop": true,
 "name": &"progress_7",
@@ -186,7 +186,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ybxp1")
+"texture": SubResource("AtlasTexture_bcwpu")
 }],
 "loop": true,
 "name": &"progress_8",
@@ -194,7 +194,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ybfif")
+"texture": SubResource("AtlasTexture_ybxp1")
 }],
 "loop": true,
 "name": &"progress_9",
@@ -212,10 +212,10 @@ script = ExtResource("1_reye2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_d3p6v")
-animation = &"progress_8"
+animation = &"progress_15"
 
 [node name="HitPulseTimer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.05
 one_shot = true
 
 [connection signal="timeout" from="HitPulseTimer" to="." method="_on_hit_pulse_timer_timeout"]

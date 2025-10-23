@@ -11,4 +11,13 @@ script = ExtResource("1_rwgxs")
 position = Vector2(700, 480)
 
 [node name="PinkTriangleEnemy" parent="." instance=ExtResource("3_4wyf3")]
-position = Vector2(1257, 517)
+position = Vector2(1297, 523)
+
+[node name="PinkTriangleEnemy2" parent="." instance=ExtResource("3_4wyf3")]
+position = Vector2(124, 877)
+
+[node name="PinkTriangleEnemy3" parent="." instance=ExtResource("3_4wyf3")]
+position = Vector2(272, 160)
+
+[node name="PinkTriangleEnemy4" parent="." instance=ExtResource("3_4wyf3")]
+position = Vector2(1217, 103)

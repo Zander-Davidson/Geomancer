@@ -5,7 +5,7 @@ var aim_direction = Vector2(0,1)
 var weapons = []
 var selected_weapon_index
 
-var target_rotation_offset = 0.0  # Target angle offset for all orbitals
+var target_rotation_offset 	= 0.0  # Target angle offset for all orbitals
 var current_rotation_offset = 0.0  # Current smoothed angle offset
 var rotation_velocity = 0.0  # Angular velocity for smooth movement
 var is_rotating = false
@@ -46,17 +46,29 @@ func _process(delta: float) -> void:
 	# Update positions
 	process_movement(delta)
 
-	
 func process_input():
-	# aiming
-	var stick_direction = Input.get_vector("aim_west", "aim_east", "aim_north", "aim_south").normalized()
-	if stick_direction.length() != 0:
-		aim_direction = stick_direction
+	match Settings.get_setting("controls", "control_mode"):
+		
+		# aiming is different depending on control mode
+		Enum.ControlMode.GAMEPAD:
+			var stick_direction = Input.get_vector("aim_west", "aim_east", "aim_north", "aim_south").normalized()
+			if stick_direction.length() != 0:
+				aim_direction = stick_direction
+			else:
+				print(Global.player.move_direction)
+				aim_direction = Global.player.last_move_direction
+				
+		Enum.ControlMode.MOUSE_AND_KEYBOARD:
+			var mouse_position = get_viewport().get_mouse_position()
+			aim_direction = (mouse_position - global_position).normalized()
 
-	# weapon cycling
+	# control mode agnostic settings
+	
+	# cycle next weapon
 	if Input.is_action_just_pressed("cycle_weapon") and weapons.size() > 1:
 		cycle_weapons_counter_clockwise()
-
+			
+	# fire weapon
 	if Input.is_action_just_pressed("fire_weapon"):
 		var selected_weapon = weapons[selected_weapon_index]
 		SignalBus.selected_weapon_fired.emit(

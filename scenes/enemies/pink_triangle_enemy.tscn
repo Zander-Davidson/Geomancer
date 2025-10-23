@@ -1,11 +1,36 @@
-[gd_scene load_steps=78 format=3 uid="uid://bjkdkwbjygm8e"]
+[gd_scene load_steps=85 format=3 uid="uid://bjkdkwbjygm8e"]
 
 [ext_resource type="Script" uid="uid://ds0y1fo4n3wdj" path="res://scenes/enemies/pink_triangle_enemy.gd" id="1_eyq5a"]
 [ext_resource type="Texture2D" uid="uid://bxcdsa4u4fdpd" path="res://assets/pink_triangle_spritesheet.png" id="1_pmvdw"]
+[ext_resource type="Texture2D" uid="uid://dt52aedpccvcp" path="res://assets/pink_triangle_dying_spritesheet.png" id="2_7kn2j"]
 [ext_resource type="PackedScene" uid="uid://bseq2128iea6e" path="res://ui/radial_health_bar.tscn" id="3_wux05"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eyq5a"]
 radius = 91.90877
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qi8hx"]
+atlas = ExtResource("2_7kn2j")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tws8d"]
+atlas = ExtResource("2_7kn2j")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jpjlg"]
+atlas = ExtResource("2_7kn2j")
+region = Rect2(0, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb5o6"]
+atlas = ExtResource("2_7kn2j")
+region = Rect2(320, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dj6ip"]
+atlas = ExtResource("2_7kn2j")
+region = Rect2(0, 640, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5adh"]
+atlas = ExtResource("2_7kn2j")
+region = Rect2(320, 640, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wux05"]
 atlas = ExtResource("1_pmvdw")
@@ -297,6 +322,29 @@ region = Rect2(2240, 1280, 320, 320)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0glr5"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qi8hx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tws8d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jpjlg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sb5o6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dj6ip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5adh")
+}],
+"loop": true,
+"name": &"dying",
+"speed": 12.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wux05")
@@ -645,7 +693,7 @@ shape = SubResource("CircleShape2D_eyq5a")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0glr5")
-animation = &"firing_0"
+animation = &"dying"
 
 [node name="RadialHealthBar" parent="." instance=ExtResource("3_wux05")]
 
@@ -662,9 +710,14 @@ one_shot = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_eyq5a")
 
+[node name="DyingAnimationTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
 [connection signal="hit" from="." to="RadialHealthBar" method="_on_hit"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Hitbox" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="FiringChargeHoldTimer" to="." method="_on_firing_charge_hold_timer_timeout"]
 [connection signal="timeout" from="FiringCooldownTimer" to="." method="_on_firing_cooldown_timer_timeout"]
 [connection signal="timeout" from="FiringChargeTimer" to="." method="_on_firing_charge_timer_timeout"]
+[connection signal="timeout" from="DyingAnimationTimer" to="." method="_on_dying_animation_timer_timeout"]

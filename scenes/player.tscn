@@ -1,8 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://bne1khiykten2"]
+[gd_scene load_steps=24 format=3 uid="uid://bne1khiykten2"]
 
 [ext_resource type="Texture2D" uid="uid://caqp066jsydjy" path="res://assets/green_circle_spritesheet.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dfjgrx7kc28u7" path="res://scenes/player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://bbvr3wvgpc4mc" path="res://scenes/weapon_group.tscn" id="2_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://bseq2128iea6e" path="res://ui/radial_health_bar.tscn" id="4_dqkch"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
 atlas = ExtResource("1_3vyb7")
@@ -155,12 +156,13 @@ animations = [{
 radius = 61.0
 
 [node name="Player" type="CharacterBody2D"]
+scale = Vector2(0.6, 0.6)
 script = ExtResource("1_g2els")
 
 [node name="WeaponGroup" parent="." instance=ExtResource("2_qlg0r")]
+z_index = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_qfm1y")
 animation = &"moving"
 
@@ -168,7 +170,18 @@ animation = &"moving"
 wait_time = 0.1
 one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="RadialHealthBarSmall" parent="." instance=ExtResource("4_dqkch")]
+full_color = Color(0, 1, 0, 1)
+empty_color = Color(1, 0, 0, 1)
+depleted_color = Color(1, 0, 0, 1)
+hit_pulse_scale = 1.2
+hit_pulse_wait_time = 0.1
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_qhqgy")
 
+[connection signal="hit" from="." to="RadialHealthBarSmall" method="_on_hit"]
 [connection signal="timeout" from="RampTimer" to="." method="_on_ramp_timer_timeout"]
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

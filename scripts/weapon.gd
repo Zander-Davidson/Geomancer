@@ -1,6 +1,6 @@
 class_name Weapon extends Node2D
 
-@export var distance_from_parent = 50
+@export var distance_from_parent = 200
 var is_selected = false
 var projectile_scene
 

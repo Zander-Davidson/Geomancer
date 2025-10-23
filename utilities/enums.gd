@@ -14,3 +14,8 @@ enum CardinalDirection {
 	SOUTH,
 	SOUTH_EAST
 }
+
+enum ControlMode {
+	MOUSE_AND_KEYBOARD,
+	GAMEPAD
+}

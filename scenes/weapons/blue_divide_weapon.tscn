@@ -31,8 +31,8 @@ animations = [{
 }]
 
 [node name="BlueDivideWeapon" type="Node2D"]
+scale = Vector2(1.8, 1.8)
 script = ExtResource("1_umiem")
-distance_from_parent = 110
 metadata/_custom_type_script = "uid://dypwvunaab26f"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

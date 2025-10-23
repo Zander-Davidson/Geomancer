@@ -6,6 +6,10 @@ signal hit
 @export var acceleration = 5
 @export var max_hp = 10
 
+# State machine
+enum State { CHASING, FIRING_CHARGE, FIRING_CHARGE_HOLD, FIRING_COOLDOWN, DYING }
+var current_state
+
 var move_direction = Vector2.ZERO
 var current_hp = max_hp
 
@@ -33,19 +37,25 @@ func process_animation():
 		$AnimatedSprite2D.play("moving_" +str(move_cardinal_direction))
 	else:
 		$AnimatedSprite2D.play("idle_" + str(move_cardinal_direction))
-		
-#func _on_area_2d_body_entered(body: Node2D) -> void:
-	#print("enemy body entered")
-#
-	#if body.is_in_group("player_projectile"):
-		#print("projectile hit enemy")
-		#current_hp -= body.damage
-		#emit_signal("hit", current_hp, max_hp)
 
+# projectile collision
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	print("enemy area entered")
-
-	if area.is_in_group("player_projectile"):
-		print("projectile hit enemy")
+	if area.is_in_group("player_projectile") and current_hp > 0.0:
+		# free projectile
+		area.queue_free()
+		
 		current_hp -= area.damage
+		
+		if current_hp <= 0:
+			on_dying()
+		
 		emit_signal("hit", current_hp, max_hp)
+			
+func on_dying():
+	current_state = State.DYING
+	current_hp = 0.0
+	max_speed = 0
+	$DyingAnimationTimer.start()
+	
+func _on_dying_animation_timer_timeout() -> void:
+	queue_free()

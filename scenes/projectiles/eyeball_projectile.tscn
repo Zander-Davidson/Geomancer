@@ -75,7 +75,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_nl858"]
 radius = 38.477985
 
-[node name="EyeballProjectile" type="Area2D"]
+[node name="EyeballProjectile" type="Area2D" groups=["enemy_projectile"]]
 scale = Vector2(0.6, 0.6)
 script = ExtResource("1_m8p0i")
 
