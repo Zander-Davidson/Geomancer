@@ -1,4 +1,4 @@
-# Geomancer
+# Geomancer (WIP)
 
 My first Godot project. An action roguelike.
 
