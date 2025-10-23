@@ -1,23 +1,36 @@
-[gd_scene load_steps=4 format=3 uid="uid://b02ownp57ivti"]
+[gd_scene load_steps=5 format=3 uid="uid://b02ownp57ivti"]
 
 [ext_resource type="PackedScene" uid="uid://bne1khiykten2" path="res://scenes/player.tscn" id="1_nnsk1"]
 [ext_resource type="Script" uid="uid://dgr2d61l7e6du" path="res://scenes/world.gd" id="1_rwgxs"]
+[ext_resource type="Texture2D" uid="uid://byjnvwvwcbd6h" path="res://assets/blue_grid_sprite.png" id="2_grid"]
 [ext_resource type="PackedScene" uid="uid://bjkdkwbjygm8e" path="res://scenes/enemies/pink_triangle_enemy.tscn" id="3_4wyf3"]
 
 [node name="World" type="WorldEnvironment"]
 script = ExtResource("1_rwgxs")
 
+[node name="Background" type="Parallax2D" parent="."]
+z_index = -1
+repeat_size = Vector2(640, 640)
+repeat_times = 5
+
+[node name="GridSprite" type="Sprite2D" parent="Background"]
+texture_repeat = 2
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_grid")
+region_enabled = true
+region_rect = Rect2(0, 0, 8000, 8000)
+
 [node name="Player" parent="." instance=ExtResource("1_nnsk1")]
-position = Vector2(700, 480)
+position = Vector2(76.00006, -574)
 
 [node name="PinkTriangleEnemy" parent="." instance=ExtResource("3_4wyf3")]
-position = Vector2(1297, 523)
+position = Vector2(267, 183.00003)
 
 [node name="PinkTriangleEnemy2" parent="." instance=ExtResource("3_4wyf3")]
-position = Vector2(124, 877)
+position = Vector2(-476, 767)
 
 [node name="PinkTriangleEnemy3" parent="." instance=ExtResource("3_4wyf3")]
-position = Vector2(272, 160)
+position = Vector2(1432, 1122)
 
 [node name="PinkTriangleEnemy4" parent="." instance=ExtResource("3_4wyf3")]
-position = Vector2(1217, 103)
+position = Vector2(1757, -537)

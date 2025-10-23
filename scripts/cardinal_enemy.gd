@@ -28,6 +28,10 @@ func process_input():
 func process_movement(delta: float):
 	velocity = velocity.lerp(move_direction * max_speed, acceleration * delta)
 	move_and_slide()
+
+	# Clamp position to world bounds
+	position.x = clamp(position.x, Global.WORLD_BOUNDS.position.x, Global.WORLD_BOUNDS.position.x + Global.WORLD_BOUNDS.size.x)
+	position.y = clamp(position.y, Global.WORLD_BOUNDS.position.y, Global.WORLD_BOUNDS.position.y + Global.WORLD_BOUNDS.size.y)
 	
 # set animation to one of 8 cardinal direction animations
 func process_animation():

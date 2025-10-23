@@ -55,7 +55,6 @@ func process_input():
 			if stick_direction.length() != 0:
 				aim_direction = stick_direction
 			else:
-				print(Global.player.move_direction)
 				aim_direction = Global.player.last_move_direction
 				
 		Enum.ControlMode.MOUSE_AND_KEYBOARD:

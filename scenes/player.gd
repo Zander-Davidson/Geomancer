@@ -10,6 +10,14 @@ func _ready():
 	current_hp = MAX_HP
 	Global.player = self
 
+	# Configure camera limits based on world bounds
+	var camera = $Camera2D
+	if camera:
+		camera.limit_left = int(Global.WORLD_BOUNDS.position.x)
+		camera.limit_top = int(Global.WORLD_BOUNDS.position.y)
+		camera.limit_right = int(Global.WORLD_BOUNDS.position.x + Global.WORLD_BOUNDS.size.x)
+		camera.limit_bottom = int(Global.WORLD_BOUNDS.position.y + Global.WORLD_BOUNDS.size.y)
+
 func process_input():
 	move_direction = Input.get_vector("move_west", "move_east", "move_north", "move_south").normalized()
 	super.process_input();

@@ -4,7 +4,7 @@ var move_direction = Vector2.ZERO
 var move_direction_length = 0
 var move_direction_angle = 0
 
-var last_move_direction = Vector2.ZERO
+var last_move_direction = Vector2.RIGHT
 var last_move_direction_length = 0
 
 var move_animation = "idle"
@@ -51,7 +51,9 @@ func process_movement(delta: float):
 	velocity = velocity.lerp(move_direction * max_speed, acceleration * delta)
 	move_and_slide()
 
-	position = position.clamp(Vector2.ZERO, screen_size)
+	# Clamp position to world bounds
+	position.x = clamp(position.x, Global.WORLD_BOUNDS.position.x, Global.WORLD_BOUNDS.position.x + Global.WORLD_BOUNDS.size.x)
+	position.y = clamp(position.y, Global.WORLD_BOUNDS.position.y, Global.WORLD_BOUNDS.position.y + Global.WORLD_BOUNDS.size.y)
 	
 func process_animation():
 	# set animation rotation
