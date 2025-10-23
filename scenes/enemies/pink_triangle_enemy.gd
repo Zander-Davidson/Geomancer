@@ -9,6 +9,7 @@ const EyeballProjectile = preload("res://scenes/projectiles/eyeball_projectile.t
 var charge_shake_offset = Vector2.ZERO
 
 func _ready():
+	super._ready()
 	current_state = State.CHASING
 	max_speed = move_speed
 	# TODO: make this a utility function

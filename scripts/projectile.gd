@@ -18,7 +18,15 @@ func _process(delta: float) -> void:
 	
 func process_movement(delta: float):
 	position += move_direction * max_speed * delta
-	
+
+	# Clean up projectile when completely outside world bounds
+	# Buffer zone accounts for sprite size (~200px max)
+	# Note: grow() returns a new Rect2, doesn't modify Global.WORLD_BOUNDS
+	var buffer = 200
+	var cleanup_bounds = Global.WORLD_BOUNDS.grow(buffer)
+	if not cleanup_bounds.has_point(position):
+		queue_free()
+
 func process_animation():
 	# set animation rotation
 	SpriteUtility.rotate_sprite_to_cardinal_direction($AnimatedSprite2D, move_cardinal_direction)
@@ -29,5 +37,3 @@ func process_animation():
 	# idle
 	else:
 		SpriteUtility.set_sprite_idle_animation($AnimatedSprite2D)
-	
-# TODO: make projectile queue free when off screen

@@ -6,7 +6,6 @@ var current_hp
 const MAX_HP = 10.0
 
 func _ready():
-	super._ready()
 	current_hp = MAX_HP
 	Global.player = self
 
@@ -23,6 +22,11 @@ func process_input():
 	super.process_input();
 
 func on_dying():
+	# TODO: Implement player death / game over logic
+	# - Display game over screen
+	# - Stop player movement
+	# - Trigger death animation
+	# - Handle respawn or scene transition
 	pass
 
 # projectile collision

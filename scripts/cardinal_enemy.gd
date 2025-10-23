@@ -7,11 +7,18 @@ signal hit
 @export var max_hp = 10
 
 # State machine
+# TODO: Implement advanced state classes for more complex enemy types
+# Current enum-based approach works for simple behaviors but will need
+# refactoring into proper state pattern classes for varied enemy AI
 enum State { CHASING, FIRING_CHARGE, FIRING_CHARGE_HOLD, FIRING_COOLDOWN, DYING }
 var current_state
 
 var move_direction = Vector2.ZERO
-var current_hp = max_hp
+var current_hp
+
+func _ready():
+	# Initialize HP after export vars are set
+	current_hp = max_hp
 
 func setup(initial_position):
 	position = initial_position

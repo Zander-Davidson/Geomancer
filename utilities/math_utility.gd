@@ -23,3 +23,7 @@ func get_cardinal_direction(vector):
 		return Enum.CardinalDirection.SOUTH
 	elif 3*PI/8 > angle and angle >= PI/8:
 		return Enum.CardinalDirection.SOUTH_EAST
+
+	# Should never reach here - crash loudly if it does
+	assert(false, "get_cardinal_direction: Angle %f fell through all conditional checks. Vector: %s" % [angle, vector])
+	return -1  # Never reached, but keeps static analyzer happy

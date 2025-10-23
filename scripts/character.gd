@@ -7,18 +7,12 @@ var move_direction_angle = 0
 var last_move_direction = Vector2.RIGHT
 var last_move_direction_length = 0
 
-var move_animation = "idle"
-
 var is_accelerating = false
 
 var move_cardinal_direction = -1
 
 @export var max_speed = 600 # How fast the player will move (pixels/sec).
 @export var acceleration = 6
-var screen_size # Size of the game window.
-
-func _ready():
-	screen_size = get_viewport_rect().size
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
