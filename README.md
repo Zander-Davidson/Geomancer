@@ -47,7 +47,8 @@ My first Godot project. A bullet heaven twin-stick shooter.
 
 **Week of 11/10 - Catch Up Buffer**
 - Address existing bugs and other debt:
-    - (critical) Fix enemy spawning
+	- (critical) Fix enemy spawning
+- (med) add custom cursor sprite
 
 **Week of 11/17 - Polishing**
 - (critical) Add sound effects and soundtrack
