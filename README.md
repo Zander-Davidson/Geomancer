@@ -26,7 +26,7 @@ My first Godot project. A bullet heaven twin-stick shooter.
 - ✅ Player health bar/wheel
 - ✅ Make world an infinite plane with grid background
 - (med) Aim assist for controller (should be mild)
-- (high) Scoring system (display time and number of enemies killed)
+- ✅ Scoring system (display time and number of enemies killed)
 - (high) Game Over on player death
 - (high) Restart button
 - (high) Title screen
