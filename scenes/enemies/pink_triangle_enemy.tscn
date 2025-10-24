@@ -1,9 +1,9 @@
 [gd_scene load_steps=85 format=3 uid="uid://bjkdkwbjygm8e"]
 
-[ext_resource type="Script" uid="uid://ds0y1fo4n3wdj" path="res://scenes/enemies/pink_triangle_enemy.gd" id="1_eyq5a"]
-[ext_resource type="Texture2D" uid="uid://bxcdsa4u4fdpd" path="res://assets/pink_triangle_spritesheet.png" id="1_pmvdw"]
-[ext_resource type="Texture2D" uid="uid://dt52aedpccvcp" path="res://assets/pink_triangle_dying_spritesheet.png" id="2_7kn2j"]
-[ext_resource type="PackedScene" uid="uid://bseq2128iea6e" path="res://ui/radial_health_bar.tscn" id="3_wux05"]
+[ext_resource type="Script" uid="uid://ds0y1fo4n3wdj" path="res://scripts/pink_triangle_enemy.gd" id="1_eyq5a"]
+[ext_resource type="Texture2D" uid="uid://dqoh57x31qeu6" path="res://assets/sprites/pink_triangle_spritesheet.png" id="1_pmvdw"]
+[ext_resource type="Texture2D" uid="uid://b1qkw2qit8igl" path="res://assets/sprites/pink_triangle_dying_spritesheet.png" id="2_7kn2j"]
+[ext_resource type="PackedScene" uid="uid://bseq2128iea6e" path="res://scenes/ui/radial_health_bar.tscn" id="3_wux05"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eyq5a"]
 radius = 91.90877
