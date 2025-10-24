@@ -19,6 +19,7 @@ My first Godot project. A bullet heaven twin-stick shooter.
 - ✅ Enemy movement behavior as a state machine
 
 **Week of 10/20 - Player vs. Enemy**
+- ✅ Health bar/circle
 - ✅ Make healthbar fade out after hit
 - ✅ Add dying anim for enemy
 - ✅ Enemy projectile hit detection
