@@ -686,7 +686,7 @@ animations = [{
 scale = Vector2(0.6, 0.6)
 script = ExtResource("1_eyq5a")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." groups=["aim_assist_target"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_eyq5a")

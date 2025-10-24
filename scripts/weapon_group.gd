@@ -1,6 +1,10 @@
 extends Node2D
 
+const FOV_ANGLE = PI / 8  # 45 degree cone on each side of aim direction
+const AIM_ASSIST_ROTATION_SPEED = 8.0  # How fast auto-aim rotates towards target (radians/sec)
+
 var aim_direction = Vector2(0,1)
+var nearby_enemies: Array = []
 
 var weapons = []
 var selected_weapon_index
@@ -38,22 +42,22 @@ func _ready():
 	weapons.push_front(w1)
 
 func _process(delta: float) -> void:
-	process_input()
-	
+	process_input(delta)
+
 	# Smooth rotation
 	smooth_rotation(delta)
-	
+
 	# Update positions
 	process_movement(delta)
 
-func process_input():
+func process_input(delta: float):
 	match Settings.get_setting("controls", "control_mode"):
-		
+
 		# aiming is different depending on control mode
 		Enum.ControlMode.GAMEPAD:
 			var stick_direction = Input.get_vector("aim_west", "aim_east", "aim_north", "aim_south").normalized()
 			if stick_direction.length() != 0:
-				aim_direction = stick_direction
+				aim_direction = auto_aim(stick_direction, delta)
 			else:
 				aim_direction = Global.player.last_move_direction
 				
@@ -132,16 +136,94 @@ func stop_rotation():
 func process_movement(delta: float):
 	if weapons.size() == 0:
 		return
-	
+
 	var num_weapons = weapons.size()
 	var arc_angle = 2 * PI / num_weapons
-	
+
 	# Use target offset when not rotating to prevent jitter from aim_direction changes
 	var angle_offset = 0 if not is_rotating else (current_rotation_offset - arc_angle)
-	
+
 	for i in range(selected_weapon_index, num_weapons):
 		weapons[i].position = aim_direction.rotated(angle_offset) * weapons[i].distance_from_parent
 		angle_offset -= arc_angle
 	for i in range(0, selected_weapon_index):
 		weapons[i].position = aim_direction.rotated(angle_offset) * weapons[i].distance_from_parent
 		angle_offset -= arc_angle
+
+func _on_aim_assist_area_entered(area: Area2D) -> void:
+	if area.is_in_group("aim_assist_target"):
+		var enemy = area.get_parent()
+		if enemy and not nearby_enemies.has(enemy):
+			nearby_enemies.append(enemy)
+
+func _on_aim_assist_area_exited(area: Area2D) -> void:
+	if area.is_in_group("aim_assist_target"):
+		var enemy = area.get_parent()
+		if enemy and nearby_enemies.has(enemy):
+			nearby_enemies.erase(enemy)
+
+func auto_aim(stick_direction: Vector2, delta: float) -> Vector2:
+	var current_aim = aim_direction
+	var closest_enemy = null
+	var closest_distance = INF
+
+	# Find closest enemy within FOV
+	for enemy in nearby_enemies:
+		# Skip if enemy was freed
+		if not is_instance_valid(enemy):
+			continue
+
+		var direction_to_enemy = (enemy.global_position - global_position).normalized()
+		var distance_to_enemy = global_position.distance_to(enemy.global_position)
+
+		# Check if enemy is within FOV
+		var angle_to_enemy = direction_to_enemy.angle()
+		var current_aim_angle = current_aim.angle()
+		var angle_diff = abs(angle_to_enemy - current_aim_angle)
+
+		# Handle angle wraparound
+		if angle_diff > PI:
+			angle_diff = 2 * PI - angle_diff
+
+		# Enemy is in FOV and closer than current closest and enemy not DYING
+		if enemy.current_state != CardinalEnemy.State.DYING and angle_diff <= FOV_ANGLE and distance_to_enemy < closest_distance:
+			closest_enemy = enemy
+			closest_distance = distance_to_enemy
+
+	# Smoothly rotate towards target or stick direction
+	var target_direction: Vector2
+	if closest_enemy:
+		target_direction = (closest_enemy.global_position - global_position).normalized()
+
+		# Check if player is manually aiming outside FOV of auto-aim target
+		var angle_to_target = target_direction.angle()
+		var stick_angle = stick_direction.angle()
+		var stick_to_target_diff = abs(stick_angle - angle_to_target)
+
+		# Handle angle wraparound
+		if stick_to_target_diff > PI:
+			stick_to_target_diff = 2 * PI - stick_to_target_diff
+
+		# If stick is outside FOV of target, use stick direction instead
+		if stick_to_target_diff > FOV_ANGLE:
+			target_direction = stick_direction
+	else:
+		target_direction = stick_direction
+
+	# Calculate angle difference and rotate smoothly
+	var current_angle = current_aim.angle()
+	var target_angle = target_direction.angle()
+	var angle_diff = target_angle - current_angle
+
+	# Normalize angle difference to [-PI, PI]
+	while angle_diff > PI:
+		angle_diff -= 2 * PI
+	while angle_diff < -PI:
+		angle_diff += 2 * PI
+
+	# Calculate how much to rotate this frame
+	var max_rotation_this_frame = AIM_ASSIST_ROTATION_SPEED * delta
+	var rotation_amount = clamp(angle_diff, -max_rotation_this_frame, max_rotation_this_frame)
+
+	# Apply rotation and return new direction
+	return current_aim.rotated(rotation_amount)
