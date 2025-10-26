@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://lhctaf2ajfo" path="res://scripts/hud.gd" id="1_546lt"]
 [ext_resource type="Texture2D" uid="uid://c51ms4xrnvobc" path="res://assets/sprites/enemies_killed_icon.png" id="1_rbyyf"]
-[ext_resource type="FontFile" uid="uid://c55sbb3gu0pgw" path="res://assets/fonts/Unispace Rg.otf" id="3_546lt"]
+[ext_resource type="FontFile" uid="uid://c55sbb3gu0pgw" path="res://assets/fonts/game_font.otf" id="3_546lt"]
 
 [node name="HUD" type="CanvasLayer"]
 layer = 5

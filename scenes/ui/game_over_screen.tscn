@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://gwmqevrqe3qo"]
 
-[ext_resource type="FontFile" uid="uid://c55sbb3gu0pgw" path="res://assets/fonts/Unispace Rg.otf" id="1_60xr3"]
+[ext_resource type="FontFile" uid="uid://c55sbb3gu0pgw" path="res://assets/fonts/game_font.otf" id="1_60xr3"]
 [ext_resource type="Script" uid="uid://dc0xnagb6jo5l" path="res://scripts/game_over_screen.gd" id="1_sopbp"]
 
 [node name="GameOverScreen" type="CanvasLayer"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://fk6o143go7xl"]
 
 [ext_resource type="Script" uid="uid://ckoa4fpwnc5of" path="res://scripts/title_screen.gd" id="1_aqpy5"]
-[ext_resource type="FontFile" uid="uid://c55sbb3gu0pgw" path="res://assets/fonts/Unispace Rg.otf" id="1_eb34j"]
+[ext_resource type="FontFile" uid="uid://c55sbb3gu0pgw" path="res://assets/fonts/game_font.otf" id="1_eb34j"]
 
 [node name="TitleScreen" type="CanvasLayer"]
 script = ExtResource("1_aqpy5")
@@ -37,3 +37,29 @@ theme_override_fonts/font = ExtResource("1_eb34j")
 theme_override_font_sizes/font_size = 32
 text = "sample text"
 metadata/_edit_use_anchors_ = true
+
+[node name="MoveAndAimLabel" type="Label" parent="."]
+anchors_preset = -1
+anchor_top = 0.4
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_eb34j")
+theme_override_font_sizes/font_size = 32
+text = "- move
+- aim"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ShootAndSwitchLabel" type="Label" parent="."]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.4
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_fonts/font = ExtResource("1_eb34j")
+theme_override_font_sizes/font_size = 32
+text = "- shoot
+- switch weapon"
+horizontal_alignment = 1
+vertical_alignment = 1
