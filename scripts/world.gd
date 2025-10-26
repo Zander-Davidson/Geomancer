@@ -5,9 +5,26 @@ extends Node
 # in seconds
 var game_timer_ticks
 
-func _ready():
-	SignalBus.selected_weapon_fired.connect(_on_selected_weapon_fired)
+enum State { TITLE_SCREEN, PLAYING, GAME_OVER}
+var current_state
 
+func _ready():
+	ready_title_screen()
+	ready_player()
+	ready_world()
+	
+func _process(delta: float):
+	match current_state:
+		State.TITLE_SCREEN:
+			if Input.is_action_just_pressed("start_game"):
+				start_game()
+			
+func ready_title_screen():
+	current_state = State.TITLE_SCREEN
+	$TitleScreen.show()
+	$HUD.hide()
+		
+func ready_player():
 	# Position player at center of world
 	if has_node("Player"):
 		var player = get_node("Player")
@@ -16,14 +33,16 @@ func _ready():
 		# Reset camera smoothing so it snaps to player position instead of panning
 		if player.has_node("Camera2D"):
 			player.get_node("Camera2D").reset_smoothing()
-	
-	# TODO: have a proper starting screen/scene and move this
-	$EnemyTimer.start()
-	
-	start_game()
+			
+func ready_world():
+	SignalBus.selected_weapon_fired.connect(_on_selected_weapon_fired)
 	
 func start_game():
+	current_state = State.PLAYING
+	$TitleScreen.hide()
+	$HUD.show()
 	game_timer_ticks = 0
+	$EnemyTimer.start()
 	$GameTimer.start()
 	
 func _on_selected_weapon_fired(weapon: Weapon, aim_direction: Vector2, weapon_location: Vector2):
@@ -40,10 +59,9 @@ func _on_enemy_timer_timeout() -> void:
 	# Set the enemy's position to the random location.
 	# Use global_position since enemy is added to World, not EnemyPath
 	enemy.position = enemy_spawn_location.global_position
-#
+	
 	# Spawn the enemy by adding it to the Main scene.
 	add_child(enemy)
-
 
 func _on_game_timer_timeout() -> void:
 	game_timer_ticks += 1
