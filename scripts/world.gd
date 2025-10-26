@@ -2,48 +2,70 @@ extends Node
 
 @export var pink_triangle_enemy_scene: PackedScene
 
-# in seconds
-var game_timer_ticks
-
-enum State { TITLE_SCREEN, PLAYING, GAME_OVER}
-var current_state
-
 func _ready():
+	Global.player = preload("res://scenes/player/player.tscn").instantiate()
+	add_child(Global.player)
+	
 	ready_title_screen()
 	ready_player()
-	ready_world()
+	ready_signals()
 	
 func _process(delta: float):
-	match current_state:
-		State.TITLE_SCREEN:
+	match Global.game_state:
+		Enum.GameState.TITLE_SCREEN:
 			if Input.is_action_just_pressed("start_game"):
-				start_game()
+				game_start()
+		Enum.GameState.GAME_OVER_SCREEN:
+				if Input.is_action_just_pressed("start_game"):
+					reset_game()
 			
 func ready_title_screen():
-	current_state = State.TITLE_SCREEN
+	Global.game_state = Enum.GameState.TITLE_SCREEN
 	$TitleScreen.show()
 	$HUD.hide()
 		
 func ready_player():
-	# Position player at center of world
-	if has_node("Player"):
-		var player = get_node("Player")
-		player.position = Vector2(Global.WORLD_WIDTH / 2, Global.WORLD_HEIGHT / 2)
-
-		# Reset camera smoothing so it snaps to player position instead of panning
-		if player.has_node("Camera2D"):
-			player.get_node("Camera2D").reset_smoothing()
+	Global.player.setup()
 			
-func ready_world():
+func ready_signals():
 	SignalBus.selected_weapon_fired.connect(_on_selected_weapon_fired)
+	SignalBus.player_death.connect(_on_player_death)
 	
-func start_game():
-	current_state = State.PLAYING
+func game_start():
+	Global.game_state = Enum.GameState.PLAYING
+	
 	$TitleScreen.hide()
 	$HUD.show()
-	game_timer_ticks = 0
+	
+	$HUD/GameTime.text = "00:00"
+	Global.seconds_elapsed = 0
+	Global.num_enemies_killed = 0
+	
 	$EnemyTimer.start()
 	$GameTimer.start()
+	
+func _on_player_death():
+	Global.game_state = Enum.GameState.PLAYER_DEATH
+	
+	$EnemyTimer.stop()
+	$GameTimer.stop()
+	
+	# wait for player death animation to finish
+	$GameOverWaitTimer.start()
+	
+func reset_game():
+	$GameOverScreen.hide()
+	
+	# clear enemies
+	for enemy in get_tree().get_nodes_in_group("enemy"):
+		enemy.queue_free()
+		
+	# clear projectiles
+	for projectile in get_tree().get_nodes_in_group("projectile"):
+		projectile.queue_free()
+			
+	ready_title_screen()
+	ready_player()
 	
 func _on_selected_weapon_fired(weapon: Weapon, aim_direction: Vector2, weapon_location: Vector2):
 	add_child(weapon.create_projectile(aim_direction, weapon_location))
@@ -64,5 +86,10 @@ func _on_enemy_timer_timeout() -> void:
 	add_child(enemy)
 
 func _on_game_timer_timeout() -> void:
-	game_timer_ticks += 1
-	$HUD.update_game_timer(game_timer_ticks)
+	Global.seconds_elapsed += 1
+	$HUD.update_game_timer()
+
+func _on_game_over_scene_timer_timeout() -> void:
+	Global.game_state = Enum.GameState.GAME_OVER_SCREEN
+	Global.player.hide()
+	$GameOverScreen.show()

@@ -1,5 +1,5 @@
 extends Node
 
 signal selected_weapon_fired(weapon, weapon_location)
-
 signal enemy_killed
+signal player_death

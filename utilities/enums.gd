@@ -19,3 +19,10 @@ enum ControlMode {
 	MOUSE_AND_KEYBOARD,
 	GAMEPAD
 }
+
+enum GameState { 
+	TITLE_SCREEN, 
+	PLAYING, 
+	GAME_OVER_SCREEN, 
+	PLAYER_DEATH
+}

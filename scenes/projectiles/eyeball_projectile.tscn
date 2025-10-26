@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://h73lmnchhlxb"]
 
 [ext_resource type="Script" uid="uid://b3x45g151f5fo" path="res://scripts/projectile.gd" id="1_m8p0i"]
-[ext_resource type="Texture2D" uid="uid://sesgtxxfby6j" path="res://assets/sprites/eyeball_projectile.png" id="2_nl858"]
+[ext_resource type="Texture2D" uid="uid://bialqrf3d5bht" path="res://assets/sprites/eyeball_projectile.png" id="2_nl858"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ev5a8"]
 atlas = ExtResource("2_nl858")
@@ -75,7 +75,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_nl858"]
 radius = 38.477985
 
-[node name="EyeballProjectile" type="Area2D" groups=["enemy_projectile"]]
+[node name="EyeballProjectile" type="Area2D" groups=["enemy_projectile", "projectile"]]
 scale = Vector2(0.6, 0.6)
 script = ExtResource("1_m8p0i")
 

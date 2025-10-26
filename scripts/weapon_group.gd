@@ -38,7 +38,8 @@ func _ready():
 	weapons.push_front(w1)
 
 func _process(delta: float) -> void:
-	process_input()
+	if Global.game_state == Enum.GameState.TITLE_SCREEN or Global.game_state == Enum.GameState.PLAYING:
+		process_input()
 	
 	# Smooth rotation
 	smooth_rotation(delta)
