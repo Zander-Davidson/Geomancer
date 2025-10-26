@@ -7,6 +7,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	# Keep spawn rectangle centered on player
-	position.x = Global.player.global_position.x  - 500
-	position.y = Global.player.global_position.x  - 500
+	if Global.player != null:
+		# TODO: this is broken
+		# Keep spawn rectangle centered on player
+		position.x = Global.player.global_position.x  - 500
+		position.y = Global.player.global_position.x  - 500

@@ -67,6 +67,7 @@ func on_dying():
 	current_hp = 0.0
 	max_speed = 0
 	$DyingAnimationTimer.start()
+	Global.num_enemies_killed += 1
 	SignalBus.enemy_killed.emit()
 	
 func _on_dying_animation_timer_timeout() -> void:

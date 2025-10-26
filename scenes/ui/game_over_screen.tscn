@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://gwmqevrqe3qo"]
+
+[ext_resource type="FontFile" uid="uid://c55sbb3gu0pgw" path="res://assets/fonts/Unispace Rg.otf" id="1_60xr3"]
+[ext_resource type="Script" uid="uid://dc0xnagb6jo5l" path="res://scripts/game_over_screen.gd" id="1_sopbp"]
+
+[node name="GameOverScreen" type="CanvasLayer"]
+script = ExtResource("1_sopbp")
+
+[node name="GameOverLabel" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -330.0
+offset_top = -216.5
+offset_right = 330.0
+offset_bottom = -71.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_60xr3")
+theme_override_font_sizes/font_size = 120
+text = "game over"
+
+[node name="PressRestartLabel" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -91.0
+offset_top = -353.0
+offset_right = 91.0
+offset_bottom = -308.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_60xr3")
+theme_override_font_sizes/font_size = 32
+text = "sample text"

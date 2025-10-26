@@ -682,7 +682,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="PinkTriangleEnemy" type="CharacterBody2D"]
+[node name="PinkTriangleEnemy" type="CharacterBody2D" groups=["enemy"]]
 scale = Vector2(0.6, 0.6)
 script = ExtResource("1_eyq5a")
 

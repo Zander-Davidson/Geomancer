@@ -27,9 +27,9 @@ horizontal_alignment = 2
 [node name="GameTime" type="Label" parent="."]
 z_index = 5
 offset_left = 26.0
-offset_top = 2.0
+offset_top = 9.0
 offset_right = 367.0
-offset_bottom = 78.0
+offset_bottom = 87.0
 theme_override_fonts/font = ExtResource("3_546lt")
 theme_override_font_sizes/font_size = 64
 text = "00:00"
