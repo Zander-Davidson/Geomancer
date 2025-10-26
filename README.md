@@ -30,7 +30,7 @@ My first Godot project. A bullet heaven twin-stick shooter.
 - ✅ Scoring system (display time and number of enemies killed)
 - (high) Game Over on player death
 - (high) Restart button
-- (high) Title screen
+- ✅ Title screen
 
 **Week of 10/27 - Enemy Leveling**
 - (high) Enemy strength levels. Create different instances of the enemy scene with varying strengths (hp and projectile properties):
