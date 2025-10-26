@@ -26,10 +26,9 @@ My first Godot project. A bullet heaven twin-stick shooter.
 - ✅ Player projectile hit detection
 - ✅ Player health bar/wheel
 - ✅ Make world an infinite plane with grid background
-- (med) Aim assist for controller (should be mild)
 - ✅ Scoring system (display time and number of enemies killed)
-- (high) Game Over on player death
-- (high) Restart button
+- ✅ Game Over on player death
+- ✅ Restart button
 - ✅ Title screen
 
 **Week of 10/27 - Enemy Leveling**
@@ -50,11 +49,13 @@ My first Godot project. A bullet heaven twin-stick shooter.
 - Address existing bugs and other debt:
 	- (critical) Fix enemy spawning
 - (med) add custom cursor sprite
+- (med) Aim assist for gamepad (see existing branch)
+- (critical) need a way to set or detect control mode setting
 
 **Week of 11/17 - Polishing**
 - (critical) Add sound effects and soundtrack
 - (high) Design new player sprite sheet
-- (low) Incorporate player Adds if time permits
+- (low) implement player Adds if time permits
 
 **Week of 11/24 - Release**
 - Last minute tweaks
