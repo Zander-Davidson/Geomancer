@@ -39,7 +39,7 @@ My first Godot project. A bullet heaven twin-stick shooter.
 **Week of 10/27 - Enemy Leveling**
 - (high) Enemy strength levels. Create different instances of the enemy scene with varying strengths (hp and projectile properties):
 - (high) Enemy colors and “aura”s to indicate strength level
-- (med) Enemies prestiege  as weapons do
+- (med) Enemies prestige  as weapons do
 - (high) Enemies grow stronger as a function of time and/or number of kills
 - (low) varying enemy bullet patterns
 
