@@ -16,26 +16,19 @@ var rotation_acceleration = 35.0  # How fast we accelerate
 var rotation_deceleration = 25.0  # How fast we decelerate when near target
 
 func _ready():
-	# TODO: remove and implement weapon pickups
-	var w1 = preload("res://scenes/weapons/red_minus_weapon.tscn").instantiate()
-	var w2 = preload("res://scenes/weapons/purple_plus_weapon.tscn").instantiate()
-	w2.setup(preload("res://scenes/projectiles/purple_plus_projectile.tscn"))
-	var w3 = preload("res://scenes/weapons/blue_divide_weapon.tscn").instantiate()
-	var w4 = preload("res://scenes/weapons/purple_plus_weapon.tscn").instantiate()
-	w4.setup(preload("res://scenes/projectiles/purple_plus_projectile.tscn"))
+	# TODO: add more weapons
 	
-	w1.is_selected = true
-	selected_weapon_index = 0
+	for i in range(0, 4):
+		var weapon = preload("res://scenes/weapons/purple_plus_weapon.tscn").instantiate()
+		weapon.setup(preload("res://scenes/projectiles/purple_plus_projectile.tscn"))
+		
+		selected_weapon_index = 0
+		
+		add_child(weapon)
+		
+		weapons.push_front(weapon)
 	
-	add_child(w1)
-	add_child(w2)
-	add_child(w3)
-	add_child(w4)
-	
-	weapons.push_front(w4)
-	weapons.push_front(w3)
-	weapons.push_front(w2)
-	weapons.push_front(w1)
+	weapons[0].is_selected = true
 
 func _process(delta: float) -> void:
 	if Global.game_state == Enum.GameState.TITLE_SCREEN or Global.game_state == Enum.GameState.PLAYING:

@@ -39,7 +39,7 @@ position = Vector2(-820, -580)
 rotation = 1.5707964
 
 [node name="EnemyTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 1.5
 
 [node name="HUD" parent="." instance=ExtResource("6_7sfyy")]
 
