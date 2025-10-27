@@ -8,6 +8,7 @@ My first Godot project. A bullet heaven twin-stick shooter.
 - install Godot engine
 - clone this repo and import to Godot
 - ask me for assets, and put in `/assets`
+- to change control setting, find `/utilities/settings.gd` and change defaults.controls.control_mode. gamepad and mouse+keyboard curently supported.
 
 ## Development Timeline and Features
 
