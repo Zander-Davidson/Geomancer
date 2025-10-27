@@ -1,6 +1,6 @@
 [gd_scene load_steps=85 format=3 uid="uid://bjkdkwbjygm8e"]
 
-[ext_resource type="Script" uid="uid://ds0y1fo4n3wdj" path="res://scripts/pink_triangle_enemy.gd" id="1_eyq5a"]
+[ext_resource type="Script" uid="uid://b6gupu28hm4go" path="res://scripts/cardinal_enemy.gd" id="1_7kn2j"]
 [ext_resource type="Texture2D" uid="uid://dqoh57x31qeu6" path="res://assets/sprites/pink_triangle_spritesheet.png" id="1_pmvdw"]
 [ext_resource type="Texture2D" uid="uid://b1qkw2qit8igl" path="res://assets/sprites/pink_triangle_dying_spritesheet.png" id="2_7kn2j"]
 [ext_resource type="PackedScene" uid="uid://bseq2128iea6e" path="res://scenes/ui/radial_health_bar.tscn" id="3_wux05"]
@@ -684,7 +684,7 @@ animations = [{
 
 [node name="PinkTriangleEnemy" type="CharacterBody2D" groups=["enemy"]]
 scale = Vector2(0.6, 0.6)
-script = ExtResource("1_eyq5a")
+script = ExtResource("1_7kn2j")
 
 [node name="Hitbox" type="Area2D" parent="."]
 
@@ -715,8 +715,7 @@ wait_time = 0.8
 one_shot = true
 
 [connection signal="hit" from="." to="RadialHealthBar" method="_on_hit"]
-[connection signal="area_entered" from="Hitbox" to="." method="_on_area_2d_area_entered"]
-[connection signal="body_entered" from="Hitbox" to="." method="_on_area_2d_body_entered"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_entered"]
 [connection signal="timeout" from="FiringChargeHoldTimer" to="." method="_on_firing_charge_hold_timer_timeout"]
 [connection signal="timeout" from="FiringCooldownTimer" to="." method="_on_firing_cooldown_timer_timeout"]
 [connection signal="timeout" from="FiringChargeTimer" to="." method="_on_firing_charge_timer_timeout"]

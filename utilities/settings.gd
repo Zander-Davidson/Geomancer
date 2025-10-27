@@ -29,7 +29,7 @@ var defaults = {
 		"screen_shake": true
 	},
 	"controls": {
-		"control_mode": Enum.ControlMode.MOUSE_AND_KEYBOARD,
+		"control_mode": Enum.ControlMode.GAMEPAD,
 		"controller_sensitivity": 1.0,
 		"controller_vibration": true
 	}

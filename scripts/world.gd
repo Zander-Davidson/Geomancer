@@ -1,6 +1,6 @@
 extends Node
 
-@export var pink_triangle_enemy_scene: PackedScene
+const ENEMY_PACKED_SCENE = preload("res://scenes/enemies/pink_triangle_enemy.tscn")
 
 func _ready():
 	Global.player = preload("res://scenes/player/player.tscn").instantiate()
@@ -72,7 +72,7 @@ func _on_selected_weapon_fired(weapon: Weapon, aim_direction: Vector2, weapon_lo
 
 func _on_enemy_timer_timeout() -> void:
 	# Create a new instance of the enemy scene.
-	var enemy = pink_triangle_enemy_scene.instantiate()
+	var enemy = ENEMY_PACKED_SCENE.instantiate()
 
 	# Choose a random location on Path2D.
 	var enemy_spawn_location = $EnemyPath/EnemySpawnLocation
@@ -86,6 +86,7 @@ func _on_enemy_timer_timeout() -> void:
 	add_child(enemy)
 
 func _on_game_timer_timeout() -> void:
+	# add 1 second to the game timer and update HUD
 	Global.seconds_elapsed += 1
 	$HUD.update_game_timer()
 
