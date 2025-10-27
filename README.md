@@ -4,6 +4,11 @@ My first Godot project. A bullet heaven twin-stick shooter.
 
 ![demo_10-23-25](https://github.com/user-attachments/assets/e7d283c6-c3a0-4561-9495-10b688a69f55)
 
+## Local Development
+- install Godot engine
+- clone this repo and import to Godot
+- ask me for assets, and put in `/assets`
+
 ## Development Timeline and Features
 
 **Week of 10/6 - Player Scene**
