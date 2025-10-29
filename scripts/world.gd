@@ -85,7 +85,10 @@ func _on_enemy_timer_timeout() -> void:
 	add_child(enemy)
 
 func _on_game_timer_timeout() -> void:
-	# add 1 second to the game timer and update HUD
+	# add 1 second to game timer
+	Global.seconds_elapsed += 1
+
+	# update HUD
 	$UI/HUD.update_game_timer()
 
 func _on_game_over_scene_timer_timeout() -> void:
