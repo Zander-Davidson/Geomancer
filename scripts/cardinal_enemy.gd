@@ -8,19 +8,40 @@ enum State { CHASING, FIRING_CHARGE, FIRING_CHARGE_HOLD, FIRING_COOLDOWN, DYING 
 const EYEBALL_PROJECTILE_PACKED_SCENE = preload("res://scenes/projectiles/eyeball_projectile.tscn")
 
 @export var acceleration = 5
-@export var max_hp = 10
+@export var max_hp = 1.0
 @export var keepaway_distance = 400
-@export var move_speed = 200
+@export var max_speed = 200
+@export var projectile_speed = 600
+@export var projectile_damage = 1.0
+@export var speed_modifier = 1.0
 
-var max_speed = move_speed
+var target_speed = max_speed
 var current_state = State.CHASING
 var move_direction = MathUtility.get_direction_to_player(position)
 var charge_shake_offset = Vector2.ZERO
 var current_hp = max_hp
 
 
-func setup(initial_position):
-	position = initial_position
+func setup(
+	color: Color, 
+	max_hp_modifier: float,
+	speed_modifier_in: float,
+	projectile_damage_modifier: float
+):
+	$AnimatedSprite2D.material.set_shader_parameter("tint_color", color)
+	
+	max_hp *= max_hp_modifier
+	current_hp = max_hp
+	
+	max_speed *= speed_modifier_in
+	target_speed = max_speed
+	acceleration *= speed_modifier_in
+	
+	projectile_speed *= speed_modifier_in
+	projectile_damage *= projectile_damage_modifier
+	$FiringChargeTimer.wait_time /= speed_modifier_in
+	$FiringChargeHoldTimer.wait_time /= speed_modifier_in
+	$FiringCooldownTimer.wait_time /= speed_modifier_in
 
 func _process(delta: float):
 	if Global.player != null:
@@ -40,7 +61,7 @@ func _process(delta: float):
 		process_animation()
 	
 func process_movement(delta: float):
-	velocity = velocity.lerp(move_direction * max_speed, acceleration * delta)
+	velocity = velocity.lerp(move_direction * target_speed, acceleration * delta)
 	move_and_slide()
 
 	# Clamp position to world bounds
@@ -55,7 +76,7 @@ func process_animation():
 	match current_state:
 		State.CHASING:
 			# Use parent's normal animation logic
-			if max_speed > 0:
+			if target_speed > 0:
 				$AnimatedSprite2D.play("moving_" + str(move_cardinal_direction))
 			else:
 				$AnimatedSprite2D.play("idle_" + str(move_cardinal_direction))
@@ -63,6 +84,8 @@ func process_animation():
 		State.FIRING_CHARGE:
 			# Play firing animation, tracking player direction
 			$AnimatedSprite2D.play("firing_" + str(move_cardinal_direction))
+			var animation_speed = $AnimatedSprite2D.sprite_frames.get_animation_speed("firing_" + str(move_cardinal_direction))	
+			$AnimatedSprite2D.sprite_frames.set_animation_speed("firing_" + str(move_cardinal_direction), animation_speed * speed_modifier)	
 				
 		State.FIRING_CHARGE_HOLD:
 			# undo the last shake offset, add add a new one
@@ -87,7 +110,7 @@ func process_chasing_state():
 	# Normal chase behavior
 	if position.distance_to(Global.player.position) <= keepaway_distance:
 		# Within stopping range - start firing sequence
-		max_speed = 0
+		target_speed = 0
 		current_state = State.FIRING_CHARGE
 		$FiringChargeTimer.start()
 
@@ -105,8 +128,12 @@ func process_firing_cooldown_state():
 
 func fire_projectile():
 	# Spawn projectile at enemy position, shooting toward player
-	var projectile = EYEBALL_PROJECTILE_PACKED_SCENE.instantiate()
-	projectile.setup(750, 1, MathUtility.get_direction_to_player(position), position)
+	var projectile = EYEBALL_PROJECTILE_PACKED_SCENE.instantiate() as Projectile
+	projectile.setup(
+		projectile_speed, 
+		projectile_damage, 
+		MathUtility.get_direction_to_player(position),
+		position)
 	get_parent().add_child(projectile)
 			
 func _on_firing_charge_timer_timeout() -> void:
@@ -130,7 +157,7 @@ func _on_firing_cooldown_timer_timeout() -> void:
 	if current_state != State.DYING:
 		# Return to chasing after cooldown
 		current_state = State.CHASING
-		max_speed = move_speed
+		target_speed = max_speed
 		
 # projectile collision
 func _on_hitbox_entered(projectile: Area2D) -> void:
@@ -149,7 +176,7 @@ func _on_hitbox_entered(projectile: Area2D) -> void:
 func _on_dying():
 	current_state = State.DYING
 	current_hp = 0.0
-	max_speed = 0
+	target_speed = 0
 	$DyingAnimationTimer.start()
 	Global.num_enemies_killed += 1
 	SignalBus.enemy_killed.emit()

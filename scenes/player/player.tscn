@@ -1,7 +1,8 @@
-[gd_scene load_steps=45 format=3 uid="uid://bne1khiykten2"]
+[gd_scene load_steps=46 format=3 uid="uid://bne1khiykten2"]
 
 [ext_resource type="Texture2D" uid="uid://dlp7amrrpifw1" path="res://assets/sprites/green_circle_spritesheet.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://eh3cirfunqd6" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://cwh8v46fkrt1f" path="res://scenes/effects/crt_shader.tscn" id="2_75vfm"]
 [ext_resource type="PackedScene" uid="uid://bbvr3wvgpc4mc" path="res://scenes/player/weapon_group.tscn" id="2_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://mitdjsaf22de" path="res://assets/sprites/green_circle_death_spritesheet.png" id="3_p47bc"]
 [ext_resource type="PackedScene" uid="uid://bseq2128iea6e" path="res://scenes/ui/radial_health_bar.tscn" id="4_dqkch"]
@@ -308,6 +309,8 @@ script = ExtResource("1_g2els")
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
+
+[node name="CrtShader" parent="Camera2D" instance=ExtResource("2_75vfm")]
 
 [node name="WeaponGroup" parent="." instance=ExtResource("2_qlg0r")]
 z_index = 1

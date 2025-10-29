@@ -9,7 +9,6 @@ func update_game_timer():
 	var seconds_since_last_minute = Global.seconds_elapsed % 60
 	var minutes_elapsed = (Global.seconds_elapsed - seconds_since_last_minute) / 60
 	
-	# TODO: add padding
 	if seconds_since_last_minute < 10:
 		seconds_since_last_minute = "0" + str(seconds_since_last_minute)
 	

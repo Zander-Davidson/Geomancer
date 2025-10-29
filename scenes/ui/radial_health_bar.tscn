@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=3 uid="uid://bseq2128iea6e"]
 
-[ext_resource type="Texture2D" uid="uid://bfnpbu8kgfeg6" path="res://assets/sprites/radial_progress_bar_small_spritesheet.png" id="1_bwywt"]
+[ext_resource type="Texture2D" uid="uid://cf54bl3ts2ucu" path="res://assets/sprites/radial_progress_bar_small_spritesheet.png" id="1_bwywt"]
 [ext_resource type="Script" uid="uid://c3j7b07jihskq" path="res://scripts/radial_health_bar.gd" id="1_reye2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qirge"]

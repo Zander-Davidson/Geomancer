@@ -23,6 +23,7 @@ SpriteUtility="*res://utilities/sprite_utility.gd"
 SignalBus="*res://utilities/signal_bus.gd"
 Global="*res://utilities/global.gd"
 Settings="*res://utilities/settings.gd"
+EnemyFactory="*res://utilities/enemy_factory.gd"
 
 [display]
 

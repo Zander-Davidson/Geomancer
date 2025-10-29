@@ -1,12 +1,18 @@
-[gd_scene load_steps=85 format=3 uid="uid://bjkdkwbjygm8e"]
+[gd_scene load_steps=87 format=3 uid="uid://bjkdkwbjygm8e"]
 
 [ext_resource type="Script" uid="uid://b6gupu28hm4go" path="res://scripts/cardinal_enemy.gd" id="1_7kn2j"]
 [ext_resource type="Texture2D" uid="uid://dqoh57x31qeu6" path="res://assets/sprites/pink_triangle_spritesheet.png" id="1_pmvdw"]
 [ext_resource type="Texture2D" uid="uid://b1qkw2qit8igl" path="res://assets/sprites/pink_triangle_dying_spritesheet.png" id="2_7kn2j"]
+[ext_resource type="Shader" uid="uid://b8x0vk4nrut52" path="res://shaders/enemy_tint.gdshader" id="2_q5vv5"]
 [ext_resource type="PackedScene" uid="uid://bseq2128iea6e" path="res://scenes/ui/radial_health_bar.tscn" id="3_wux05"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eyq5a"]
 radius = 91.90877
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q5vv5"]
+resource_local_to_scene = true
+shader = ExtResource("2_q5vv5")
+shader_parameter/tint_color = Color(1, 1, 1, 0)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qi8hx"]
 atlas = ExtResource("2_7kn2j")
@@ -692,8 +698,9 @@ script = ExtResource("1_7kn2j")
 shape = SubResource("CircleShape2D_eyq5a")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_q5vv5")
 sprite_frames = SubResource("SpriteFrames_0glr5")
-animation = &"dying"
+animation = &"firing_1"
 
 [node name="RadialHealthBar" parent="." instance=ExtResource("3_wux05")]
 

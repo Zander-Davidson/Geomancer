@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwh8v46fkrt1f"]
+
+[ext_resource type="Shader" uid="uid://mtvsgam1qy8r" path="res://shaders/crt.gdshader" id="1_bp216"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tj8h4"]
+shader = ExtResource("1_bp216")
+shader_parameter/enable_grain = true
+shader_parameter/enable_curving = false
+shader_parameter/enable_scanlines = true
+shader_parameter/enable_chromatic_aberration = true
+shader_parameter/enable_rgb_grid = false
+shader_parameter/enable_vhs_wiggle = true
+shader_parameter/enable_vignette = false
+shader_parameter/brightness_multiplier = 1.35
+shader_parameter/grain_strength = 0.25
+shader_parameter/curve_power = 1.02
+shader_parameter/vignette_size = 0.4
+shader_parameter/vignette_smoothness = 0.4
+shader_parameter/scanlines_interval = 6.0
+shader_parameter/scanline_opacity = 0.45
+shader_parameter/scanline_thickness = 3.0
+shader_parameter/chromatic_aberration_strength = 1.0
+shader_parameter/wiggle = 0.002
+
+[node name="CrtShader" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 4096
+material = SubResource("ShaderMaterial_tj8h4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

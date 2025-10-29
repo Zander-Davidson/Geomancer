@@ -1,6 +1,5 @@
 extends Node
 
-const ENEMY_PACKED_SCENE = preload("res://scenes/enemies/pink_triangle_enemy.tscn")
 
 func _ready():
 	Global.player = preload("res://scenes/player/player.tscn").instantiate()
@@ -21,8 +20,8 @@ func _process(delta: float):
 			
 func ready_title_screen():
 	Global.game_state = Enum.GameState.TITLE_SCREEN
-	$TitleScreen.show()
-	$HUD.hide()
+	$UI/TitleScreen.show()
+	$UI/HUD.hide()
 		
 func ready_player():
 	Global.player.setup()
@@ -34,10 +33,10 @@ func ready_signals():
 func game_start():
 	Global.game_state = Enum.GameState.PLAYING
 	
-	$TitleScreen.hide()
-	$HUD.show()
+	$UI/TitleScreen.hide()
+	$UI/HUD.show()
 	
-	$HUD/GameTime.text = "00:00"
+	$UI/HUD/GameTime.text = "00:00"
 	Global.seconds_elapsed = 0
 	Global.num_enemies_killed = 0
 	
@@ -54,7 +53,7 @@ func _on_player_death():
 	$GameOverWaitTimer.start()
 	
 func reset_game():
-	$GameOverScreen.hide()
+	$UI/GameOverScreen.hide()
 	
 	# clear enemies
 	for enemy in get_tree().get_nodes_in_group("enemy"):
@@ -71,13 +70,13 @@ func _on_selected_weapon_fired(weapon: Weapon, aim_direction: Vector2, weapon_lo
 	add_child(weapon.create_projectile(aim_direction, weapon_location))
 
 func _on_enemy_timer_timeout() -> void:
-	# Create a new instance of the enemy scene.
-	var enemy = ENEMY_PACKED_SCENE.instantiate()
-
+	var enemy = EnemyFactory.create_random_enemy()
+	
+	# TODO: broken
 	# Choose a random location on Path2D.
 	var enemy_spawn_location = $EnemyPath/EnemySpawnLocation
 	enemy_spawn_location.progress_ratio = randf()
-
+	
 	# Set the enemy's position to the random location.
 	# Use global_position since enemy is added to World, not EnemyPath
 	enemy.position = enemy_spawn_location.global_position
@@ -87,10 +86,9 @@ func _on_enemy_timer_timeout() -> void:
 
 func _on_game_timer_timeout() -> void:
 	# add 1 second to the game timer and update HUD
-	Global.seconds_elapsed += 1
-	$HUD.update_game_timer()
+	$UI/HUD.update_game_timer()
 
 func _on_game_over_scene_timer_timeout() -> void:
 	Global.game_state = Enum.GameState.GAME_OVER_SCREEN
 	Global.player.hide()
-	$GameOverScreen.show()
+	$UI/GameOverScreen.show()
