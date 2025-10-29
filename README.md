@@ -38,11 +38,11 @@ My first Godot project. A bullet heaven twin-stick shooter.
 - ✅ Title screen
 
 **Week of 10/27 - Enemy Leveling**
-- (high) Enemy strength levels. Create different instances of the enemy scene with varying strengths (hp and projectile properties):
-- (high) Enemy colors and “aura”s to indicate strength level
+- ✅ Enemy strength levels. Create different instances of the enemy scene with varying strengths (hp and projectile properties):
+- ✅ Enemy colors to indicate strength level
 - (med) Enemies prestige  as weapons do
 - (high) Enemies grow stronger as a function of time and/or number of kills
-- (low) varying enemy bullet patterns
+- (low) varying enemy bullet patterns with aura to indicate
 
 **Week of 11/3 - Weapon Leveling**
 - (high) Enemies drop weapon XP
@@ -54,6 +54,7 @@ My first Godot project. A bullet heaven twin-stick shooter.
 **Week of 11/10 - Catch Up Buffer**
 - Address existing bugs and other debt:
 	- (critical) Fix enemy spawning
+   	- (critical) fix issue with UI in fullscreen
 - (med) add custom cursor sprite
 - (med) Aim assist for gamepad (see existing branch)
 - (critical) need a way to set or detect control mode setting
