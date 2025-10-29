@@ -2,7 +2,9 @@
 
 My first Godot project. A bullet heaven twin-stick shooter.
 
-![demo_10-23-25](https://github.com/user-attachments/assets/e7d283c6-c3a0-4561-9495-10b688a69f55)
+<img width="723" height="479" alt="Screenshot 2025-10-28 at 10 18 31 PM" src="https://github.com/user-attachments/assets/1d4b6366-f2ab-42bf-aac1-3880ed5541b3" />
+
+![Oct-28-2025 22-22-59](https://github.com/user-attachments/assets/eef0ac10-4c32-47dc-86b5-ff5524728229)
 
 ## Local Development
 - install Godot engine
