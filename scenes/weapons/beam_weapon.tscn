@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://somh5m8eu7j5"]
+
+[ext_resource type="Script" uid="uid://bq6wrknucqils" path="res://scripts/beam_weapon.gd" id="1_vhv0s"]
+[ext_resource type="Texture2D" uid="uid://dha7gyuafj7kx" path="res://assets/sprites/red_minus_spritesheet.png" id="2_2g4is"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8ybj"]
+atlas = ExtResource("2_2g4is")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0chqn"]
+atlas = ExtResource("2_2g4is")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hohnu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8ybj")
+}],
+"loop": true,
+"name": &"not_selected",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0chqn")
+}],
+"loop": true,
+"name": &"selected",
+"speed": 5.0
+}]
+
+[node name="BeamWeapon" type="Node2D"]
+scale = Vector2(1.8, 1.8)
+script = ExtResource("1_vhv0s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hohnu")
+animation = &"not_selected"

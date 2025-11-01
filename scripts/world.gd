@@ -27,7 +27,7 @@ func ready_player():
 	Global.player.setup()
 			
 func ready_signals():
-	SignalBus.selected_weapon_fired.connect(_on_selected_weapon_fired)
+	SignalBus.selected_projectile_weapon_fired.connect(_on_selected_projectile_weapon_fired)
 	SignalBus.player_death.connect(_on_player_death)
 	
 func game_start():
@@ -66,8 +66,8 @@ func reset_game():
 	ready_title_screen()
 	ready_player()
 	
-func _on_selected_weapon_fired(weapon: Weapon, aim_direction: Vector2, weapon_location: Vector2):
-	add_child(weapon.create_projectile(aim_direction, weapon_location))
+func _on_selected_projectile_weapon_fired(weapon: ProjectileWeapon, aim_direction: Vector2):
+	add_child(weapon.create_projectile(aim_direction))
 
 func _on_enemy_timer_timeout() -> void:
 	var enemy = EnemyFactory.create_random_enemy()

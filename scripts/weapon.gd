@@ -1,26 +1,26 @@
-class_name Weapon extends Node2D
+class_name Weapon 
+extends Node2D
 
 @export var distance_from_parent = 200
-@export var projectile_speed = 1000
-@export var projectile_damage = 3
-var is_selected = false
-var projectile_scene
 
-func setup(projectile_scene_in):
-	projectile_scene = projectile_scene_in
+enum State { NOT_SELECTED, SELECTED }
+var current_state = State.NOT_SELECTED
 
-func create_projectile(aim_direction: Vector2, weapon_location: Vector2):
-	var projectile = projectile_scene.instantiate() as Projectile
-	projectile.setup(projectile_speed, projectile_damage, aim_direction, weapon_location)
-	return projectile
+# override in child class to define weapon fired behavior
+func fire_weapon_pressed(aim_direction: Vector2) -> void:
+	pass
+	
+func fire_weapon_released():
+	pass
 
 func _process(delta: float):
 	process_animation()
 	
 func process_animation():
-	if is_selected:
-		$AnimatedSprite2D.play("selected")
-		$AnimatedSprite2D.scale = Vector2(0.4, 0.4)
-	else:
-		$AnimatedSprite2D.play("not_selected")
-		$AnimatedSprite2D.scale = Vector2(0.2, 0.2)
+	match current_state:
+		State.NOT_SELECTED:
+			$AnimatedSprite2D.play("not_selected")
+			$AnimatedSprite2D.scale = Vector2(0.2, 0.2)
+		State.SELECTED:
+			$AnimatedSprite2D.play("selected")
+			$AnimatedSprite2D.scale = Vector2(0.4, 0.4)

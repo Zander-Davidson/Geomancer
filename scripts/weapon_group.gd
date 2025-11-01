@@ -3,7 +3,7 @@ extends Node2D
 var aim_direction = Vector2(0,1)
 
 var weapons = []
-var selected_weapon_index
+var selected_weapon_index = 0
 
 var target_rotation_offset 	= 0.0  # Target angle offset for all orbitals
 var current_rotation_offset = 0.0  # Current smoothed angle offset
@@ -18,17 +18,16 @@ var rotation_deceleration = 25.0  # How fast we decelerate when near target
 func _ready():
 	# TODO: add more weapons
 	
-	for i in range(0, 4):
-		var weapon = preload("res://scenes/weapons/purple_plus_weapon.tscn").instantiate()
-		weapon.setup(preload("res://scenes/projectiles/purple_plus_projectile.tscn"))
-		
-		selected_weapon_index = 0
-		
-		add_child(weapon)
-		
-		weapons.push_front(weapon)
+	var projectile_weapon = preload("res://scenes/weapons/purple_plus_weapon.tscn").instantiate() as ProjectileWeapon
+	projectile_weapon.setup(preload("res://scenes/projectiles/purple_plus_projectile.tscn"))
+	add_child(projectile_weapon)
+	weapons.push_front(projectile_weapon)
 	
-	weapons[0].is_selected = true
+	var beam_weapon = preload("res://scenes/weapons/beam_weapon.tscn").instantiate() as BeamWeapon
+	add_child(beam_weapon)
+	weapons.push_front(beam_weapon)
+	
+	weapons[selected_weapon_index].current_state = Weapon.State.SELECTED
 
 func _process(delta: float) -> void:
 	if Global.game_state == Enum.GameState.TITLE_SCREEN or Global.game_state == Enum.GameState.PLAYING:
@@ -62,20 +61,21 @@ func process_input():
 		cycle_weapons_counter_clockwise()
 			
 	# fire weapon
-	if Input.is_action_just_pressed("fire_weapon"):
+	if Input.is_action_pressed("fire_weapon"):
 		var selected_weapon = weapons[selected_weapon_index]
-		SignalBus.selected_weapon_fired.emit(
-			selected_weapon, 
-			aim_direction, 
-			global_position + aim_direction * selected_weapon.distance_from_parent)
+		selected_weapon.fire_weapon_pressed(aim_direction)
+	elif Input.is_action_just_released("fire_weapon"):
+		weapons[selected_weapon_index].fire_weapon_released()
 
 func cycle_weapons_counter_clockwise():
-	weapons[selected_weapon_index].is_selected = false
+	# set current weapon state and force release fire
+	weapons[selected_weapon_index].current_state = Weapon.State.NOT_SELECTED
+	weapons[selected_weapon_index].fire_weapon_released()
 	
 	# Move to the next weapon
 	selected_weapon_index = (selected_weapon_index + 1) % weapons.size()
 		
-	weapons[selected_weapon_index].is_selected = true
+	weapons[selected_weapon_index].current_state = Weapon.State.SELECTED
 	
 	# Add one arc segment to the target rotation
 	var arc_angle = 2 * PI / weapons.size()
